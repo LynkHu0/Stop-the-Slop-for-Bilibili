@@ -158,7 +158,7 @@
         </div>
         <div class="score-display">
           <span class="score-value" id="score-value">0%</span>
-          <span class="score-label" id="score-label">AI Probability</span>
+          <span class="score-label" id="score-label">AI文案疑似评分</span>
         </div>
       </div>
 
@@ -171,6 +171,7 @@
 
     </div>
 
+    <p class="score-disclaimer">分数是模型估计，未经概率校准，不能证明创作来源。</p>
     <section id="usage-panel" class="usage-panel" aria-label="服务用量" aria-live="polite">
       <p id="usage-primary">正在读取服务用量…</p><p id="usage-detail"></p><p id="usage-notice"></p>
       <a id="usage-deepseek" href="https://platform.deepseek.com/usage" target="_blank" rel="noreferrer" hidden>同步DeepSeek官方账单</a>
@@ -188,7 +189,7 @@
         <input id="auto-detect" type="checkbox">
         <span>自动检测可见的视频卡片</span>
       </label>
-      <p class="settings-hint">开启后，B站列表页、搜索页的视频卡片滚动到可视区域时会自动检测（同一时间只检测一个，其余排队）。关闭后恢复为手动点击。每次自动检测都会调用你配置的服务并产生相应费用。</p>
+      <p class="settings-hint">开启后，B站列表页、搜索页的视频卡片滚动到可视区域时会自动检测（按本地服务的并发设置处理，其余排队）。关闭后恢复为手动点击。每次自动检测都会调用你配置的服务并产生相应费用。</p>
     </section>
     <!-- Footer -->
     <footer class="footer">

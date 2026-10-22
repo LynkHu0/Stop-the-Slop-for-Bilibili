@@ -15,7 +15,7 @@ function render(result){
  $('gauge-fill').setAttribute('stroke-dashoffset',String(251.33*(1-score)));
  $('gauge-needle').setAttribute('transform',`rotate(${score*180-90}, 100, 100)`);
  $('verdict').className=`verdict verdict--${kind}`;
- $('verdict-text').textContent=kind==='human'?'Likely Human-Written':kind==='mixed'?'Mixed Signals':'Likely AI-Written';
+ $('verdict-text').textContent=BiliSlop.label(score);
  show('state-result');
 }
 function applyTheme(theme){

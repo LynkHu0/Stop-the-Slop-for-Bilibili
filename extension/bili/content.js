@@ -26,7 +26,7 @@
   function paint(button,result){
     button.textContent=`${BiliSlop.label(result.score)} · ${Math.round(result.score*100)}`;
     button.style.background=result.score>.7?'#a9233aeb':result.score<.4?'#17624deb':'#795b19eb';
-    button.title=`${result.provider==='deepseek'?'DeepSeek API':'ChatGPT 套餐'} · ${result.engine || 'gpt-6-luna'} · 本机已检测结果`;
+    button.title=`${result.provider==='deepseek'?'DeepSeek API':'ChatGPT 套餐'} · ${result.engine || 'gpt-6-luna'} · 本机已检测结果；启发式评分，不能证明创作来源`;
   }
   function errorLabel(error){
     if(error.code==='NO_SUBTITLES')return '暂无可用字幕';

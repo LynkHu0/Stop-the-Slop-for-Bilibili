@@ -13,3 +13,5 @@
 .connection-settings .settings-hint { margin:5px 0 0; font-size:11px; line-height:1.55; color:var(--text-muted); }
 
 .usage-panel{padding:12px 0;border-top:1px solid var(--border-subtle);font-size:12px;line-height:1.6}.usage-panel p{margin:0 0 4px}.usage-panel #usage-primary{font-weight:600;color:var(--text-primary)}.usage-panel #usage-detail,.usage-panel #usage-notice{color:var(--text-muted);font-size:11px}.usage-panel a{color:var(--text-secondary);font-size:11px}
+
+.score-disclaimer{font-size:11px;line-height:1.5;color:var(--text-muted);margin:8px 0 12px;text-align:center}
