@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Stop the Slop · B站 ChatGPT套餐版",
+  "name": "Stop the Slop for BIlibili",
   "description": "保留 YouTube 功能，B站字幕文案检测、本地封面标记，并自动检测可见视频卡片。",
   "version": "1.5.5",
   "icons": {

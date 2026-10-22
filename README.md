@@ -1,10 +1,10 @@
-# Stop the Slop · B站双服务版 1.5.5
+# Stop the Slop for BIlibili 1.5.5
 
 **上游项目：[MauroPello/stop-the-slop](https://github.com/MauroPello/stop-the-slop)。本项目是基于 Stop the Slop 的非官方 B站适配，保留上游 YouTube 代码，并新增 B站字幕读取、本地服务及检测界面。不是上游官方版本。**
 
 署名、参考 commit 和许可情况见 [UPSTREAM.md](UPSTREAM.md)。
 
-[下载安装包](https://github.com/LynkHu0/bilibili-ai-script-detector/releases/latest)。源码用户先在 `local-server` 目录执行 `npm ci`，开发检查见文末。
+[下载安装包](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/releases/latest)。源码用户先在 `local-server` 目录执行 `npm ci`，开发检查见文末。
 
 原项目版本见 UPSTREAM.md。本版B站检测支持两种服务：使用各自的 ChatGPT 账户和套餐额度，或填写自己的 DeepSeek API Key。默认 ChatGPT 模型为 `gpt-6-luna`、强度为 `high`；可以在本地设置页自行更改。两种服务不会自动切换。1.4.0 起，B站列表页和搜索页的视频卡片进入可视区域后会自动检测，无需逐张点击；可在插件底部齿轮的“连接设置”中关闭。
 
