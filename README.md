@@ -1,48 +1,117 @@
-# Stop the Slop for BIlibili 1.5.6
+# Stop the Slop for BIlibili
 
-**基于 [MauroPello/stop-the-slop](https://github.com/MauroPello/stop-the-slop) 的非官方 B站适配。** 保留上游 YouTube 代码，新增 B站字幕读取、本地检测服务和评分界面。不是 Stop the Slop 官方版本，与上游、B站及模型服务商无隶属或背书关系。
+> **AI Script Detector for Bilibili**：读取 B站视频字幕，用你自己的 ChatGPT 账户或 DeepSeek API，为视频文案提供 AI 疑似评分。
 
-[下载安装包](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/releases/latest) · [隐私与数据处理](PRIVACY.md) · [上游与许可待确认事项](UPSTREAM.md)
+[![Download](https://img.shields.io/badge/Download-GitHub_Releases-0f172a?style=flat-square)](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/releases/latest)
+[![Browsers](https://img.shields.io/badge/Browser-Chrome_%2F_Edge-4285F4?style=flat-square)](#installation)
+[![Privacy](https://img.shields.io/badge/Privacy-Policy-15803d?style=flat-square)](PRIVACY.md)
+[![Upstream](https://img.shields.io/badge/Upstream-Stop_the_Slop-555?style=flat-square)](https://github.com/MauroPello/stop-the-slop)
 
-## 功能与限制
+基于 **[MauroPello/stop-the-slop](https://github.com/MauroPello/stop-the-slop)** 的非官方 B站适配，保留上游 YouTube 代码，新增 B站字幕读取、本地服务和检测界面。非上游官方版本，与 B站及模型服务商无隶属或背书关系。
 
-- 读取可访问的 B站官方字幕，用用户选择的 ChatGPT 套餐接入或 DeepSeek API 给出 AI 文案疑似评分。
-- 支持 Chrome / Edge 的 B站视频页、首页、搜索与 UP 空间中的受支持视频卡片；不支持 B站手机 App，不自动转录无字幕视频。
-- 仅分析字幕前15000字符，至少需要50字符。无字幕、登录失败、接口错误和无效模型结果均不能当作真人或 AI 分数。
-- 评分是模型估计，**未经概率校准，不能证明作者使用了 AI，也不表示 AI 实际撰写的字数比例**。界面不提供模型解释或字幕证据；没有经过中文来源识别基准评测。
-- 可见卡片自动检测默认开启，允许约200px预加载；保存连接码并配置服务后可能开始请求。可以在插件齿轮设置关闭。并发1–100、默认10，多标签页共享本地服务限制。自动请求会消耗套餐用量或 API 余额，不保证固定耗时或不触发限流。
-- ChatGPT 接入可用性取决于 OpenAI 当前支持范围、账户/工作区权限与所选模型，不保证所有套餐、地区或模型都可用；请在设置页测试。DeepSeek 使用自己的 API 余额，两种服务不会自动切换。
+---
 
-## 安装
+## 下载与相关项目
 
-1. 安装 [Node.js](https://nodejs.org/) 22或更新版本，下载 Release 中的完整 ZIP 并解压。
-2. Windows 双击 `启动检测-Windows.bat`；macOS 双击 `启动检测.command`。首次运行从 npm 安装依赖；保持启动窗口运行。若系统阻止打开，请先核验源码和下载来源，按自己的系统策略处理。
-3. 打开 `http://127.0.0.1:17653`，选择服务：ChatGPT 使用自己的账户登录授权；DeepSeek 填写自己的 Key。保存后测试，测试也会消耗用量。
-4. Chrome / Edge 扩展管理页开启开发者模式，加载 `extension` 文件夹。在插件连接设置保存本机连接码。
-5. 使用前阅读 [PRIVACY.md](PRIVACY.md)，按需关闭自动检测；登录 B站并刷新页面。可手动点击卡片或在视频页打开插件检测。
+- **安装包：** [下载最新版本](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/releases/latest)，解压后加载扩展。当前发布版本为 **1.5.6**。
+- **Shadowrocket 版：** [Stop the Slop for Shadowrocket](https://github.com/LynkHu0/Stop-the-Slop-for-Shadowrocket)。
+- **问题反馈：** [GitHub Issues](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/issues)。反馈前请移除 Key、Cookie、连接码和账户信息。
+- **上游项目：** [Stop the Slop — YouTube AI Script Detector](https://github.com/MauroPello/stop-the-slop)。
 
-连接码会保存在本机，正常重启通常沿用；删除连接文件或显式更改连接码后需要重新配对。请勿分享连接码、已登录程序目录或填写过的 Key。
+本适配版通过 GitHub 分发，尚未上架浏览器扩展商店；上游的商店入口不安装本适配版。
 
-## 数据与权限摘要
+---
 
-- **B站 → 本机 → 用户选择的 OpenAI / DeepSeek**：B站会话用于获取视频信息与字幕，不作为模型请求字段发送。字幕前15000字符发送给所选模型服务商。
-- **YouTube → 上游服务**：保留的 YouTube 功能会向 `stop-the-slop-api.maurobum43.workers.dev` 查询视频 ID / 缓存；发起检测时会发送视频 ID 和字幕。该服务由上游维护，本项目不能控制其日志或保存期限。
-- **DeepSeek 用量页 → 本机**：扩展在 `platform.deepseek.com/usage` 显示同步按钮；用户点击后读取当前可见金额、次数、Tokens、Key筛选标签和时间范围，写入本地服务。同页面筛选不变时会自动更新；这不是读取完整 Key 或 Cookie。
-- 本地凭据未加密保存。Unix 系统代码请求目录0700、文件0600，Windows 不保证同等 POSIX 权限语义，需依靠系统账户与文件访问控制。`store:false` 只描述 ChatGPT 请求参数，不能解读为服务商不会留存任何数据。
+## 功能
 
-## 更新与验证
+- **封面评分标记：** 在支持的 B站首页、搜索、UP空间等列表卡片上显示疑似评分，观看前即可参考。
+- **可见卡片自动检测：** 卡片进入可视区域及约200px预加载区后排队检测，也可手动点击。自动检测默认开启，可在插件齿轮设置关闭。
+- **视频页仪表盘：** 打开扩展查看当前视频的评分和简短等级，不提供模型解释或逐句证据。
+- **两种检测服务：** 选择自己的 ChatGPT 账户或 DeepSeek API Key；两者不会自动切换。ChatGPT 可用性以账户权限和服务支持范围为准。
+- **本机评分缓存：** 按视频分P、账户/Key、模型、推理设置和提示词版本隔离；已有有效结果尽量复用，减少重复调用。
+- **并发与用量：** 本地服务支持1–100并发，默认10，多标签页共用限制；展示本工具记录的 token 用量和 DeepSeek 费用估计，可手动同步官方账单摘要。
+- **明暗主题：** 支持跟随系统及手动切换。
 
-1.5.6：补全隐私、保存/清除说明；删除不符合当前实现的“字幕证据”描述；B站结果统一标为疑似评分并显示来源限制；修正连接码说明。检测提示词和自动检测默认值未改。
+**分数不是来源证明。** 它是模型的启发式估计，未经概率校准，不等于 AI 实际创作字数比例。不要据此指控作者、判断违规或作出处罚。
 
-本次发布运行60项模拟自动检查。测试通过不代表真实账号、所有 B站页面、Windows环境或检测准确率已经验收。
+---
 
-## 开发
+## 仓库结构
+
+```text
+├── extension/                 # Chrome / Edge 扩展（Manifest V3）
+│   ├── bili/                  # B站字幕、卡片及仪表盘
+│   ├── billing/               # 用户触发的 DeepSeek 账单同步
+│   ├── popup/                 # 保留的上游 YouTube 弹窗
+│   └── manifest.json
+├── local-server/              # 本机登录、模型调用、队列与用量
+├── tests/                     # 浏览器逻辑模拟检查
+├── worker/                    # 历史 Cloudflare 后端源码
+├── 启动检测.command            # macOS 启动入口
+├── 启动检测-Windows.bat         # Windows 启动入口
+├── PRIVACY.md                 # 数据去向、保存及清除
+└── UPSTREAM.md                # 上游来源与许可说明
+```
+
+B站检测使用 `local-server`，不需要部署 `worker`。不能用上游的 YouTube 后端代替本地 B站服务。
+
+---
+
+<a id="installation"></a>
+## 安装（开发者模式）
+
+### 1. 启动本地服务
+
+1. 安装 [Node.js](https://nodejs.org/) **22或更新版本**。
+2. [下载安装 ZIP](https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili/releases/latest) 并完整解压。
+3. Windows 双击 `启动检测-Windows.bat`；macOS 双击 `启动检测.command`。首次运行会从 npm 安装依赖，保持窗口运行。若系统阻止打开，先核验源码与来源，再按自己的系统策略处理。
+4. 打开 `http://127.0.0.1:17653`，选择服务并配置自己的 ChatGPT 账户或 DeepSeek Key，保存后测试。测试也会消耗用量。
+
+### 2. 加载 Chrome / Edge 扩展
+
+1. Chrome 打开 `chrome://extensions`，Edge 打开 `edge://extensions`。
+2. 开启 **开发者模式**，点击 **加载已解压的扩展程序**，选择 `extension` 文件夹。
+3. 打开扩展的齿轮设置，粘贴本地设置页的 **本机连接码**，保存并连接。
+4. 阅读 [隐私说明](PRIVACY.md)，按需关闭自动检测，然后登录 B站并刷新页面。
+
+连接码会保存在本机，正常重启通常沿用；删除连接文件或更改连接码后需要重新配对。滚动浏览可能自动调用模型并产生用量；关闭开关不保证取消已经发出的请求。
+
+---
+
+## 适用范围与限制
+
+- 面向电脑 Chrome / Edge 的 B站网页，不适用于 B站手机 App；其他浏览器未作兼容性承诺。
+- 仅分析可获取的官方字幕前15000字符，至少需要50字符。无字幕、太短、登录失败和接口错误不生成有效评分，不自动转录音频。
+- 高并发和长字幕可能增加耗时、费用或限流，不保证“即时检测”。B站页面和接口变化也可能导致功能失效。
+- ChatGPT 的套餐、模型、地区及工作区权限以服务商当前支持为准。DeepSeek 使用自己的 API 余额。
+- 当前版本通过 **60项模拟自动检查**，不代表所有设备、真实账户或来源识别准确率已验收。
+
+---
+
+## 隐私与权限
+
+B站字幕先进入本机服务，再发送至你选择的 **OpenAI 或 DeepSeek**；B站 Cookie 不作为模型请求字段发送。保留的 YouTube 功能会查询上游 Cloudflare 服务，检测时还会向它提交视频 ID 和字幕。
+
+DeepSeek 用量页同步需要用户先点击按钮，只向本机同步可见的账单摘要与筛选标签。OAuth令牌、Key及连接码保存在本机数据文件中，**没有应用层加密**；配置后的文件及备份不要分享。
+
+域名权限、保存期限、Windows权限差异、自动检测及完整清除步骤见 **[PRIVACY.md](PRIVACY.md)**。下载包不包含个人凭据，不能把配置后的运行目录当作干净安装包分享。
+
+---
+
+## 开发与检查
 
 ```sh
-cd local-server
+git clone https://github.com/LynkHu0/Stop-the-Slop-for-Bilibili.git
+cd Stop-the-Slop-for-Bilibili/local-server
 npm ci
 cd ..
 node --test local-server/test.mjs local-server/*.test.mjs tests/*.test.cjs
 ```
 
-`worker` 是历史 Cloudflare 后端源码，B站本地检测不需要部署它。上游授权情况见 [UPSTREAM.md](UPSTREAM.md)，本补丁没有补造或变更许可证。
+---
+
+## 上游与许可证
+
+感谢 **MauroPello** 的 [Stop the Slop](https://github.com/MauroPello/stop-the-slop)。本适配参考 commit `dec988b03ff63224aa6d6c796b5963eb3ccac95e`。
+
+上游 README 声明 MIT，但当前尚未补齐所需的完整许可文件及版权声明。本仓库没有将“已公开源码”等同于已完善开源授权，也未擅自添加 MIT 标识。复用与再分发前请查看 **[UPSTREAM.md](UPSTREAM.md)** 中的待确认事项。
